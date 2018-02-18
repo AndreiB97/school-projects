@@ -28,6 +28,7 @@ int main() {
     int dim, i, index, value;
     if ((com = malloc(30*sizeof(unsigned char))) != NULL) {
         while(fgets(com, 30, stdin)) {
+            // parse the commands
             p = strtok(com, " \n");
             if (strcmp(p, "INITIALIZE") == 0) {
                 p = strtok(NULL, " ");
@@ -88,14 +89,17 @@ int main() {
 }
 
 void init(int dim) {
+    // initialize memory
     arena = calloc(dim, sizeof(unsigned char));
 }
 
 void fin() {
+    // free memory
     free(arena);
 }
 
 void dump() {
+    // print content of memory on screen
     int i, j;
     for (i = 0; i < n; i+=16) {
         printf("%08X", i);
@@ -114,22 +118,20 @@ void dump() {
 }
 
 void alloc(int dim) {
+    // allocates a block of dim bytes
     int next, start, print, block, aux, i;
 
     dim += 12;
     start = arena[0]+arena[1]*256+arena[2]*256*256+arena[3]*256*256*256;
-    //verifica daca alocarea este posibila
+    // check if the allocation is possible
     if (dim > n-4) {
         printf("0\n");
     } else {
-        //verifica daca arena este goala
-        //daca nu este goala verifica daca blocul poate fi alocat la inceput
-        //daca nu poate fi alocat la inceput parcurge arena
-        //pana cand gaseste un loc liber
+        // allocates block in the first empty spot
+        // prints it's position in memory and sets the management area
+        // if no empty area was found prints 0
         if (start == 0) {
-            //afiseaza pozitia
             printf("16\n");
-            //seteaza dimensiunea blocului
             if (dim/256/256/256) {
                 arena[15] = dim/256/256/256;
                 dim /= 256;
@@ -143,12 +145,9 @@ void alloc(int dim) {
                 dim /= 256;
             }
             arena[12] = dim;
-            //seteaza zona de gestiune
             arena[0] = 4;
         } else if (start-4 >= dim) {
-            //afiseaza pozitia
             printf("16\n");
-            //seteaza zona de gestiune
             if (dim/256/256/256) {
                 arena[15] = dim/256/256/256;
                 dim /= 256;
@@ -178,19 +177,13 @@ void alloc(int dim) {
                 arena[next+4+i] = arena[i];
             }
         } else {
-            //trece la primul bloc alocat
             next = arena[start]+arena[start+1]*256+arena[start+2]*256*256+arena[start+3]*256*256*256;
             block = arena[start+8]+arena[start+9]*256+arena[start+10]*256*256+arena[start+11]*256*256*256;
             print = 0;
-            //parcurge arena pana cand gaseste loc liber pentru alocare
-            //sau pana cand ajuns la ultimul bloc din arena
             while (next != 0 && print == 0) {
                 if (next-start-block >= dim) {
-                    //afiseaza pozitia
                     printf("%d\n", start+block+12);
-                    //marcheaza gasirea unei zone pentru alocare
                     print = 1;
-                    //seteaza zona de gestiune
                     for (i = 0; i < 4; i++) {
                         arena[start+block+i] = arena[start+i];
                         arena[start+block+4+i] = arena[next+4+i];
@@ -229,20 +222,15 @@ void alloc(int dim) {
                         arena[next+4+i] = arena[start+i];
                     }
                 } else {
-                    //trece la urmatorul bloc
                     start = next;
                     next = arena[start]+arena[start+1]*256+arena[start+2]*256*256+arena[start+3]*256*256*256;
                     block = arena[start+8]+arena[start+9]*256+arena[start+10]*256*256+arena[start+11]*256*256*256;
                 }
             }
-            //daca a ajuns la ultimul bloc
-            //si nu a gasit o zona suficient de mare
-            //verifica daca alocarea poate fi facuta la finalul arenei
+
             if (print == 0) {
                 if (n-start-block >= dim) {
-                    //afiseaza pozitia
                     printf("%d\n", start+block+12);
-                    //seteaza zona de gestiune
                     if (dim/256/256/256) {
                         arena[start+block+11] = dim/256/256/256;
                         dim /= 256;
@@ -287,7 +275,6 @@ void alloc(int dim) {
                     }
                     arena[start] = aux;
                 } else {
-                    //afiseaza 0 daca nu s-a gasit o zona
                     printf("0\n");
                 }
             }
@@ -311,6 +298,8 @@ void Free(int index) {
 }
 
 void Fill(int index, int dim, int value) {
+    // fills dim bytes from index with value
+    // can overwrite management area
     while(dim) {
         arena[index+dim-1] = value;
         dim--;
@@ -318,6 +307,7 @@ void Fill(int index, int dim, int value) {
 }
 
 void shFree() {
+    // prints how many bytes are free in memory
     int liber = 0, reg = 0;
     int start, next, block;
     start = arena[0]+arena[1]*256+arena[2]*256*256+arena[3]*256*256*256;
@@ -348,6 +338,7 @@ void shFree() {
 }
 
 void shUsage() {
+    // prints how many bytes are ussed, efficiency and fragmentation
     int start, next, block, reg = 0, bytes = 0, liber = 0;
     start = arena[0]+arena[1]*256+arena[2]*256*256+arena[3]*256*256*256;
     if (start) {
@@ -379,6 +370,7 @@ void shUsage() {
 }
 
 void shAlloc() {
+    // prints all free/occupied areas
     int start, next, block;
     start = arena[0]+arena[1]*256+arena[2]*256*256+arena[3]*256*256*256;
     printf("OCCUPIED 4 bytes\n");
