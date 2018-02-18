@@ -1,10 +1,5 @@
-build: dwarfland.o dwarfland
-
-dwarfland:
-	gcc -o dwarfland dwarfland.o -Wall -lm
-
-dwarlfand.o:
-	gcc -c dwarfland.c -Wall -lm
+build:
+	gcc -o dwarfland dwarfland.c -Wall -lm
 
 clean:
-	rm dwarfland dwarfland.o
+	rm dwarfland
