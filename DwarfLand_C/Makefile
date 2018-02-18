@@ -1,5 +1,5 @@
 build:
-	gcc -o dwarfland dwarfland.c -Wall -lm
+	gcc -o dwarfland dwarfland.c -Wall
 
 clean:
 	rm dwarfland
