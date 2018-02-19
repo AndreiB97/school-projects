@@ -1,8 +1,6 @@
 package main;
 
 public abstract class Hero {
-    ////////////////////////
-    // variables
 
     // map position
     protected int x;
@@ -25,14 +23,6 @@ public abstract class Hero {
     protected int overTimeDamage;
     protected int overTimeDamageRoundsLeft;
     protected boolean isStunned;
-
-    // end variables
-    ////////////////////////
-
-
-
-    ////////////////////////
-    // methods
 
      public Hero(int _HP, char _heroClass, int _x, int _y) {
          // character attributes
@@ -86,7 +76,7 @@ public abstract class Hero {
     }
 
     public void applyOverTimeDamage() {
-        // apply over time damage d'oh also decrement stun rounds
+        // apply over time damage and decrement stun rounds
         if(overTimeDamageRoundsLeft > 0) {
             HP -= overTimeDamage;
             overTimeDamageRoundsLeft--;
@@ -97,18 +87,16 @@ public abstract class Hero {
     }
 
     protected void attack(Hero enemy) {
-         // use abilities i think
+        // use abilities
         ability1(enemy);
         ability2(enemy);
     }
 
     protected void takeDamage() {
-         // very complex method for calculating damage
+        // calculates damage taken
         HP -= Math.round(damageA1Taken * enemyA1RaceModifier);
         HP -= Math.round(damageA2Taken * enemyA2RaceModifier);
     }
-
-    // abstract methods
 
     protected abstract void checkLvlUp();
 
@@ -118,6 +106,4 @@ public abstract class Hero {
 
     protected abstract float raceModifierHandler(int num, Hero enemy);
 
-    // end methods
-    ////////////////////////
 }

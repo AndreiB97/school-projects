@@ -4,8 +4,6 @@ import fileio.FileSystem;
 import java.io.IOException;
 
 public class Main {
-    ////////////////////////
-    // variables
 
     // map vars
     private static int n;
@@ -19,17 +17,7 @@ public class Main {
     // i/o vars
     private static FileSystem fs;
 
-    // end variables
-    ////////////////////////
-
-
-
-    ////////////////////////
-    // methods
-
     public static void main(String args[]) {
-
-        // init
         try {
             fs = new FileSystem(args[0], args[1]);
         }
@@ -37,15 +25,12 @@ public class Main {
             System.out.println("ERROR: Cannot open input/output file");
         }
 
-        // read all the stuff
         readMap();
         readCharacters();
         readRounds();
 
-        // print all the stuff
         printResults();
 
-        // close all the stuff
         try {
             fs.close();
         }
@@ -119,11 +104,9 @@ public class Main {
             String moves;
 
             for (int i = 0; i < r; i++) {
-                // round begin
                 moves = fs.nextWord();
 
                 for (int j = 0; j < p; j++) {
-                    // only move if alive and not stunned
                     if (characters[j].HP > 0 && !characters[j].isStunned) {
                         characters[j].move(moves.charAt(j));
                     }
@@ -166,7 +149,6 @@ public class Main {
     }
 
     private static void printResults() {
-        // print all the stuff
         try {
             for (int i = 0; i < p; i++) {
                 if (characters[i].HP > 0) {
@@ -185,8 +167,5 @@ public class Main {
             System.out.println("ERROR: Cannot write in file");
         }
     }
-
-    // end methods
-    ////////////////////////
 
 }
