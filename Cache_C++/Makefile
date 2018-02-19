@@ -1,5 +1,5 @@
 build:
-	g++ -o tema1 main.cpp -Wall -pedantic
+	g++ -o cache main.cpp -Wall -pedantic
 
 clean:
-	rm -f tema1
+	rm -f cache
