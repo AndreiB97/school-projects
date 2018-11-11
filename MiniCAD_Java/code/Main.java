@@ -11,11 +11,9 @@ public class Main {
     public static int getRGBAValue(final String rgb, final int alpha) {
         // get rgba value of a color
         int rgba = alpha;
-        final int codingStyleMagicNumber24 = 24;
-        final int codingStyleMagicNumber16 = 16;
-        // :)
-        rgba = rgba << codingStyleMagicNumber24;
-        rgba += Integer.parseInt(rgb.substring(1), codingStyleMagicNumber16);
+
+        rgba = rgba << 24;
+        rgba += Integer.parseInt(rgb.substring(1), 16);
         return rgba;
     }
 
@@ -26,7 +24,7 @@ public class Main {
             final int n = scan.nextInt();
             String shapeName;
 
-            // scan canvas
+            // scan canvas name
             shapeName = scan.next();
 
             if (shapeName.equals("CANVAS")) {
@@ -43,7 +41,7 @@ public class Main {
 
                 final Canvas canvas = new Canvas(width, height, rgba);
 
-                // get shape and draw shape
+                // get shape and draw it
                 for (int i = 1; i < n; i++) {
                     shapeName = scan.next();
                     final DrawableShape newShape =
