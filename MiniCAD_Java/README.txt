@@ -2,7 +2,7 @@
 	This is a Java program capable of drawing simple geometric shapes, such as lines, circles, triangles etc. The program takes an input file that contains the number of shapes that need to be drawn, the properties of the canvas on which the shapes are drawn (size in pixels and color in RGB+A format) and the shapes that need to be drawn along with their properties (location on canvas, size, outline color, fill color). The resulting image is saved in a PNG file.
 
 2. Usage
-	The program requires an input file as an argument. It will automatically output to a file named "drawing.png". The input file must first contain the number of shapes that will be drawn (including the canvas), followed by the keyword CANVAS and the canvas properties (width, height, rgb and alpha), then the rest of the shapes.
+	The program requires an input file as a CLI argument. It will automatically output to a file named "drawing.png". The input file must first contain the number of shapes that will be drawn (including the canvas), followed by the keyword CANVAS and the canvas properties (width, height, rgb and alpha), then the rest of the shapes.
 	Input format for every possible shape:
 	LINE x0-coord y0-coord x1-coord y1-coord rgb alpha
 	SQUARE x-coord y-coord length outline-rgb outline-alpha fill-rgb fill-alpha
@@ -14,8 +14,6 @@
 
 
 3. Example
-	java Main inputFile
-
 	Example of input file:
 
 	21
