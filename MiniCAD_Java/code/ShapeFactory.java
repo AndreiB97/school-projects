@@ -117,11 +117,9 @@ public final class ShapeFactory {
 
                 return new Rectangle(x[0], y[0], width, height, outline, fill);
             case "TRIANGLE":
-                final int codingStyleMagicNumber3 = 3;
-                // :)
-                x = new int[codingStyleMagicNumber3];
-                y = new int[codingStyleMagicNumber3];
-                for (int i = 0; i < codingStyleMagicNumber3; i++) {
+                x = new int[3];
+                y = new int[3];
+                for (int i = 0; i < 3; i++) {
                     x[i] = scan.nextInt();
                     y[i] = scan.nextInt();
                 }
