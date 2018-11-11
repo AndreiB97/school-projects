@@ -42,27 +42,23 @@ public final class Canvas implements Painter {
 
     public void draw(final Circle shape) {
         // draw circle using bresenham circle algorithm
-        final int codingStyleMagicNumber6 = 6;
-        final int codingStyleMagicNumber10 = 10;
-        final int codingStyleMagicNumber4 = 4;
-        final int codingStyleMagicNumber3 = 3;
-        // :)
+
         Point coord = shape.getCenterCoord();
         int radius = shape.getRadius();
         int outline = shape.getOutlineColor();
         int x = coord.getX();
         int y = coord.getY();
         int p = 0;
-        int d = codingStyleMagicNumber3 - 2 * radius;
+        int d = 3 - 2 * radius;
 
         while (p <= radius) {
             circleDrawHelper(x, y, p, radius, outline);
             p++;
             if (d <= 0) {
-                d += codingStyleMagicNumber4 * p + codingStyleMagicNumber6;
+                d += 4 * p + 6;
             } else {
                 radius--;
-                d += codingStyleMagicNumber4 * (p - radius) + codingStyleMagicNumber10;
+                d += 4 * (p - radius) + 10;
             }
             circleDrawHelper(x, y, p, radius, outline);
         }
@@ -73,47 +69,46 @@ public final class Canvas implements Painter {
         }
     }
 
-    public void circleDrawHelper(final int xCodingStyle, final int yCodingStyle,
-                                 final int pCodingStyle, final int qCodingStyle,
+    public void circleDrawHelper(final int x, final int y,
+                                 final int p, final int q,
                                  final int color) {
         // helper for bresenham circle drawing algorithm
-        // #CodingStyleRULZ
-        if (xCodingStyle + pCodingStyle >= 0 && xCodingStyle + pCodingStyle < width) {
-            if (yCodingStyle + qCodingStyle >= 0 && yCodingStyle + qCodingStyle < height) {
-                image.setRGB(xCodingStyle + pCodingStyle, yCodingStyle + qCodingStyle, color);
+        if (x + p >= 0 && x + p < width) {
+            if (y + q >= 0 && y + q < height) {
+                image.setRGB(x + p, y + q, color);
             }
-            if (yCodingStyle - qCodingStyle >= 0 && yCodingStyle - qCodingStyle < height) {
-                image.setRGB(xCodingStyle + pCodingStyle, yCodingStyle - qCodingStyle, color);
-            }
-        }
-        if (xCodingStyle + qCodingStyle >= 0 && xCodingStyle + qCodingStyle < width) {
-            if (yCodingStyle + pCodingStyle >= 0 && yCodingStyle + pCodingStyle < height) {
-                image.setRGB(xCodingStyle + qCodingStyle, yCodingStyle + pCodingStyle, color);
-            }
-            if (yCodingStyle - pCodingStyle >= 0 && yCodingStyle - pCodingStyle < height) {
-                image.setRGB(xCodingStyle + qCodingStyle, yCodingStyle - pCodingStyle, color);
+            if (y - q >= 0 && y - q < height) {
+                image.setRGB(x + p, y - q, color);
             }
         }
-        if (xCodingStyle - pCodingStyle >= 0 && xCodingStyle - pCodingStyle < width) {
-            if (yCodingStyle + qCodingStyle >= 0 && yCodingStyle + qCodingStyle < height) {
-                image.setRGB(xCodingStyle - pCodingStyle, yCodingStyle + qCodingStyle, color);
+        if (x + q >= 0 && x + q < width) {
+            if (y + p >= 0 && y + p < height) {
+                image.setRGB(x + q, y + p, color);
             }
-            if (yCodingStyle - qCodingStyle >= 0 && yCodingStyle - qCodingStyle < height) {
-                image.setRGB(xCodingStyle - pCodingStyle, yCodingStyle - qCodingStyle, color);
+            if (y - p >= 0 && y - p < height) {
+                image.setRGB(x + q, y - p, color);
             }
         }
-        if (xCodingStyle - qCodingStyle >= 0 && xCodingStyle - qCodingStyle < width) {
-            if (yCodingStyle + pCodingStyle >= 0 && yCodingStyle + pCodingStyle < height) {
-                image.setRGB(xCodingStyle - qCodingStyle, yCodingStyle + pCodingStyle, color);
+        if (x - p >= 0 && x - p < width) {
+            if (y + q >= 0 && y + q < height) {
+                image.setRGB(x - p, y + q, color);
             }
-            if (yCodingStyle - pCodingStyle >= 0 && yCodingStyle - pCodingStyle < height) {
-                image.setRGB(xCodingStyle - qCodingStyle, yCodingStyle - pCodingStyle, color);
+            if (y - q >= 0 && y - q < height) {
+                image.setRGB(x - p, y - q, color);
+            }
+        }
+        if (x - q >= 0 && x - q < width) {
+            if (y + p >= 0 && y + p < height) {
+                image.setRGB(x - q, y + p, color);
+            }
+            if (y - p >= 0 && y - p < height) {
+                image.setRGB(x - q, y - p, color);
             }
         }
     }
 
     public void draw(final Diamond shape) {
-        // draw diamong
+        // draw diamond
         Point coord = shape.getCenterCoord();
         int horizontal = shape.getHorizontalDiagonalLength();
         int vertical = shape.getVerticalDiagonalLength();
